@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Catálogo Apple </title>
+</head>
+<body>
+<script>
+    const CatalogoApple = [];
+    var resp;
+    do {
+      resp = prompt("1-Cadastrar um produto \n 2-Buscar um produto \n 3-Atualizar informaçoes de um produto \n 4-Visualizar todos os produtos \n 5-Remover um produto \n 6-Sair do catalogo");
+      if (resp == 1) {
+        const nome = prompt("Digite aqui o NOME do produto que deseja cadastrar");
+        const preco = prompt("Digite aqui o PREÇO do produto que está cadastrando ");
+        const desc = prompt("Digite aqui a DESCRIÇAO do produto que está cadastrando ");
+        const ano = prompt("Digite aqui o ANO em que o produto que está cadastrando foi lançado ");
+        CatalogoApple.push({ nome, preco, descricao: desc, ano });
+      } else if (resp == 2) {
+        const busca = prompt("qual o nome deseja buscar");
+        CatalogoApple.forEach((item) => {
+          if (item.nome.includes(busca)) {
+            alert(`Nome do produto: ${item.nome} \n Preço do produto: ${item.preco} \n Descriçao do produto: ${item.descricao} \n Ano de lançamento do produto:${item.ano}`);
+          }
+        });
+      } else if (resp == 3) {
+        const AtualizarProduto = prompt("Digite o NOME do produto que deseja atualizar");
+        CatalogoApple.forEach((item) => {
+          if (item.nome == AtualizarProduto) {
+            const PrecoAtualizado = prompt("Digite o NOVO PREÇO do produto");
+            const DescAtualizada = prompt("Digite a NOVA DESCRIÇÃO do produto");
+            const AnoAtualizado = prompt("Digite o NOVO ANO do produto");
+            item.preco = PrecoAtualizado;
+            item.descricao = DescAtualizada;
+            item.ano = AnoAtualizado;
+            alert(`Nome do produto: ${item.nome} \n Preço do produto: ${item.preco} \n Descriçao do produto: ${item.descricao} \n Ano de lançamento do produto:${item.ano}`);
+            alert("Pronto! As informações do produto foram atualizadas com sucesso!");
+          }
+        });
+      } else if (resp == 4) {
+        let ListaDosProdutos = "Todos os produtos cadastrados em nosso catálogo são:\n";
+        CatalogoApple.forEach((produto, index) => {
+            ListaDosProdutos += `Produto ${index + 1}:\n`;
+            ListaDosProdutos += `Nome: ${produto.nome}\n`;
+            ListaDosProdutos += `Preço: ${produto.preco}\n`;
+            ListaDosProdutos += `Descrição: ${produto.descricao}\n`;
+            ListaDosProdutos += `Ano de lançamento: ${produto.ano}\n\n`;
+        });
+        alert(ListaDosProdutos);
+      } else if (resp == 5) {
+        const removerProduto = prompt("Digite aqui o NOME do produto que voce deseja remover do catalogo");
+        const indexProduto = CatalogoApple.findIndex(produto => produto.nome == removerProduto);
+        if (indexProduto !== -1) {
+            const confirmacao = confirm(`Tem certeza de que deseja remover o produto "${removerProduto}"?`);
+                if (confirmacao) {
+            CatalogoApple.splice(indexProduto, 1);
+            alert(`Pronto! O produto "${removerProduto}" foi removido do nosso catálogo com sucesso.`);
+        } else {
+            alert("A remoção do produto foi cancelada.");
+        }
+        } else {
+        alert(`O produto "${removerProduto}" não foi encontrado no catálogo.`);
+        }
+      }
+    } while (resp != 6);
+</script>
+</body>
+</html>
